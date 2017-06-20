@@ -5,7 +5,7 @@
 <h1><?= $this->escapeHtml($title) ?></h1>
 
 <div class="container">
-    <form name="serch-form" id="serch-form" action="<?= $this->url.'/sicred/serch'?>" method="post" class=" col-xs-4" onsubmit='return validate();'>
+    <form name="serch-form" id="serch-form" action="<?= $this->url.'/sicred/serch'?>" method="post" class=" col-xs-4">
         <div class="form-group">
             <label>Plantel: </label>
             <select id="plantel" name="plantel" class="form-control" required>
@@ -24,18 +24,7 @@
     </form>
 </div>
 
-<div id="alerta" name="alerta" class="container" disabled="false">
-    <div class="alert alert-danger alert-dismissable">
-        <a href="#" class="close" datatype="alert" aria-label="close">x</a>
-        <strong>Caracter no válido, por favor verifique la matrícula</strong>
-    </div>
-</div>
-
 <div id="resultSerch" name="resultSerch">
     <p id="resultSerch"></p>
 </div>
 
-<p>
-    <!-- El primer parametro de url() es el nombre de la ruta que deseamos utilizar para la construcciom de la URL-->
-    <a href="<?= $this->url('sicred', ['action' => 'serch']) ?>"> Consultar </a>
-</p>
