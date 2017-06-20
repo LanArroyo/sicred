@@ -1,0 +1,41 @@
+<?php
+    $title = 'Revisión de credenciales';
+    $this->headTitle($title);
+?>
+<h1><?= $this->escapeHtml($title) ?></h1>
+
+<div class="container">
+    <form name="serch-form" id="serch-form" action="<?= $this->url.'/sicred/serch'?>" method="post" class=" col-xs-4" onsubmit='return validate();'>
+        <div class="form-group">
+            <label>Plantel: </label>
+            <select id="plantel" name="plantel" class="form-control" required>
+                <option id="selection" value="">Seleccione...</option>
+                <?php for ($i=1; $i<=25;$i++){ ?>
+                    <option id="<?= $i ?>" value="<?= $i ?>"><?= $i ?></option>
+                <?php } ?>
+            </select>
+        </div>
+        <div class="input-group">
+            <input name="serch" id="serch" type="text" class="form-control" placeholder="Buscar matrícula..." minlength="9" maxlength="9" required onkeyup="javascript:this.value=this.value.toUpperCase();" value="" autocomplete="off">
+            <div class="input-group-btn">
+                <button class="btn btn-default" type="submit" id="serch-btn"><i class="glyphicon glyphicon-search"></i></button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div id="alerta" name="alerta" class="container" disabled="false">
+    <div class="alert alert-danger alert-dismissable">
+        <a href="#" class="close" datatype="alert" aria-label="close">x</a>
+        <strong>Caracter no válido, por favor verifique la matrícula</strong>
+    </div>
+</div>
+
+<div id="resultSerch" name="resultSerch">
+    <p id="resultSerch"></p>
+</div>
+
+<p>
+    <!-- El primer parametro de url() es el nombre de la ruta que deseamos utilizar para la construcciom de la URL-->
+    <a href="<?= $this->url('sicred', ['action' => 'serch']) ?>"> Consultar </a>
+</p>
