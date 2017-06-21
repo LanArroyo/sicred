@@ -1,9 +1,70 @@
+<?php
+$title = 'Revisión de credenciales';
+$this->headTitle($title);
+?>
+<h1><?= $this->escapeHtml($title) ?></h1>
+
 <div class="container">
-    <p><?php echo $this->titulo ?></p>
-    <?php var_dump($data) ?>
+    <form name="serch-form" id="serch-form" action="<?= $this->url.'/sicred/serch'?>" method="post" class=" col-xs-4">
+        <div class="form-group">
+            <label>Plantel: </label>
+            <select id="plantel" name="plantel" class="form-control" required>
+                <option id="selection" value="">Seleccione...</option>
+                <?php for ($i=1; $i<=25;$i++) {
+                    if ($i === (int)($data->plantel)) {
+                        ?>
+                        <option id="<?= $i ?>" value="<?= $i ?>" selected><?= $i ?></option>
+                    <?php } else { ?>
+                        <option id="<?= $i ?>" value="<?= $i ?>"><?= $i ?></option>
+                    <?php }
+                }?>
+            </select>
+        </div>
+        <div class="input-group">
+            <input name="serch" id="serch" type="text" class="form-control" placeholder="Buscar matrícula..." minlength="9" maxlength="9" required onkeyup="javascript:this.value=this.value.toUpperCase();" value="" autocomplete="off">
+            <div class="input-group-btn">
+                <button class="btn btn-default" type="submit" id="serch-btn"><i class="glyphicon glyphicon-search"></i></button>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="container">
+    <h4><?= $data->serch ?></h4>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Apellidos</th>
+                <th>Plantel</th>
+                <th>Foto</th>
+            </tr>
+        </thead>
+        <tbody>
+            <td><?= $data->plantel ?></td>
+            <td>" "</td>
+            <td><?= $data->plantel ?></td>
+            <td>" "</td>
+        </tbody>
+    </table>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Apellidos</th>
+            <th>Plantel</th>
+            <th>Foto</th>
+        </tr>
+        </thead>
+        <tbody>
+            <td colspan="4" rowspan="8">Foto</td>
+            <td><?= $data->serch ?></td>
+            <td>" "</td>
+            <td><?= $data->plantel ?></td>
+            <td>" "</td>
+        </tbody>
+    </table>
     <ul>
         <li>Plantel: <?= $data->plantel ?></li>
         <li>Matricula: <?= $data->serch ?></li>
-
     </ul>
 </div>
