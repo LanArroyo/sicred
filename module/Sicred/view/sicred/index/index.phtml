@@ -4,12 +4,12 @@
 ?>
 <h1><?= $this->escapeHtml($title) ?></h1>
 
-<div class="container">
+<div class="container-fluid text-left">
     <form name="serch-form" id="serch-form" action="<?= $this->url.'/sicred/serch'?>" method="post" class=" col-xs-4">
         <div class="form-group">
-            <label>Plantel: </label>
+            <label id="lblPlantel">Plantel: </label>
             <select id="plantel" name="plantel" class="form-control" required>
-                <option id="selection" value="">Seleccione...</option>
+                <option id="selection" value="">Seleccione un plantel</option>
                 <?php for ($i=1; $i<=25;$i++){ ?>
                     <option id="<?= $i ?>" value="<?= $i ?>"><?= $i ?></option>
                 <?php } ?>
@@ -22,9 +22,5 @@
             </div>
         </div>
     </form>
-</div>
-
-<div id="resultSerch" name="resultSerch">
-    <p id="resultSerch"></p>
 </div>
 
