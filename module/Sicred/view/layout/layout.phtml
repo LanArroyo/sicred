@@ -3,6 +3,8 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
+        <link href="https://fonts.googleapis.com/css?family=Assistant" rel="stylesheet">
+        <script src="http://code.jquery.com/jquery-latest.js"></script>
         <?= $this->headTitle('ZF Skeleton Application')->setSeparator(' - ')->setAutoEscape(false) ?>
 
         <?= $this->headMeta()
@@ -24,16 +26,11 @@
         ?>
 
         <script>
-            $(document).ready(function(){
-                $("#serch").on('keyup', function(){
-                    var validateER = /[A-Za-z0-9_]/;
-                    var textSerch = $("input#serch").val();
-
-                    if (!validateER.test(textSerch)){
+            $(document).ready(function () {
+                $("#serch").on('keypress', function (tecla) {
+                    if((tecla.charCode < 48 || tecla.charCode > 57) && (tecla.charCode < 97 || tecla.charCode >122) && (tecla.charCode < 65 || tecla.charCode > 90)){
                         alert("Caracter no válido");
-                        console.log("No es valida la cadena");
-                        $("#serch").val("");
-                        return;
+                        return false;
                     }
                 });
             });
@@ -41,8 +38,8 @@
 
     </head>
     <body>
-        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-            <div class="container">
+        <nav class="nav navbar-inverse">
+            <div class="container-fluid">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                         <span class="icon-bar"></span>
@@ -50,23 +47,16 @@
                         <span class="icon-bar"></span>
                     </button>
                     <a class="navbar-brand" href="<?= $this->url('home') ?>">
-                        <img src="<?= $this->basePath('img/zf-logo-mark.svg') ?>" height="28" alt="Zend Framework <?= \Sicred\Module::VERSION ?>"/>&nbsp;Skeleton Application
+                        <img src="<?= $this->basePath('img/bachilleres.png') ?>" height="28" alt="Colegio de Bachilleres <?= \Sicred\Module::VERSION ?> " />
                     </a>
-                </div>
-                <div class="collapse navbar-collapse">
-                    <ul class="nav navbar-nav">
-                        <li class="active"><a href="<?= $this->url('home') ?>">Home</a></li>
-                    </ul>
                 </div>
             </div>
         </nav>
-        <div class="container">
+
+        <footer class="container">
             <?= $this->content ?>
-            <hr>
-            <footer>
-                <p><b>Prolongación Rancho Vista Hermosa No. 105 Col. Los Girasoles C.P. 04920 Coyoacán México D.F.</b></p>
-            </footer>
-        </div>
-        <?= $this->inlineScript() ?>
+            <p><b>Prolongación Rancho Vista Hermosa No. 105 Col. Los Girasoles C.P. 04920 Coyoacán México D.F.</b></p>
+        </footer>
+        <?=$this->inlineScript() ?>
     </body>
 </html>
