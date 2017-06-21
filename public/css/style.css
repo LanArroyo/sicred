@@ -4,18 +4,34 @@ body {
 }
 
 .zf-green {
-    color: #68b604;
+    color: #48C9B0;
 }
 
 .btn-success {
     background-color: #57a900;
-    background-image: -moz-linear-gradient(top, #70d900, #57a900);
-    background-image: -ms-linear-gradient(top, #70d900, #57a900);
-    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#70d900), to(#57a900));
-    background-image: -webkit-linear-gradient(top, #70d900, #57a900);
-    background-image: -o-linear-gradient(top, #70d900, #57a900);
-    background-image: linear-gradient(top, #70d900, #57a900);
+    background-image: -moz-linear-gradient(top, #48C9B0, #57a900);
+    background-image: -ms-linear-gradient(top, #48C9B0, #57a900);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#48C9B0), to(#57a900));
+    background-image: -webkit-linear-gradient(top, #48C9B0, #57a900);
+    background-image: -o-linear-gradient(top, #48C9B0, #57a900);
+    background-image: linear-gradient(top, #48C9B0, #57a900);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#70d900', endColorstr='#57a900', GradientType=0);
+}
+#serch{
+    font-family: Assistant;
+    font-size: 16px;
+}
+#lblPlantel{
+    font-family: Assistant;
+    font-size: 18px;
+}
+
+#plantel{
+    font-family: Assistant;
+    font-size: 16px;
+}
+h4{
+    font-family: Assistant;
 }
 
 .btn-success:hover,
@@ -23,7 +39,7 @@ body {
 .btn-success.active,
 .btn-success.disabled,
 .btn-success[disabled] {
-    background-color: #57a900;
+    background-color: #48C9B0;
 }
 
 div.container a.navbar-brand > img {
