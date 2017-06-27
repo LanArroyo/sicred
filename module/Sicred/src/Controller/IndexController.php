@@ -9,6 +9,7 @@ namespace Sicred\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
+use Sicred\Model;
 
 class IndexController extends AbstractActionController
 {
@@ -19,9 +20,16 @@ class IndexController extends AbstractActionController
 
     public function serchAction()
     {
+        $resultSerch = null;
         if ($this->getRequest()->isPost()){
             $data = $this->request->getPost();
-            return new ViewModel(["titulo"=>"Recibi los datos!!", "data"=>$data]);
+            $serch = new Model\serchStudent();
+            $resultSerch = $serch->getStudent($data->serch,$data->plantel);
+            if(isset($resultSerch)){
+                return new ViewModel(["resultSerch"=>$resultSerch]);
+            }else{
+                return new ViewModel(["resultSerch"=>$data]);
+            }
         }else{
             return $this->redirect()->toUrl($this->getRequest()->getBaseURL().'sicred/index');
         }
