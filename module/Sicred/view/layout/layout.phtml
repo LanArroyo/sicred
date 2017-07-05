@@ -4,16 +4,17 @@
     <head>
         <meta charset="utf-8">
         <link href="https://fonts.googleapis.com/css?family=Assistant" rel="stylesheet">
+        <link href='https://fonts.googleapis.com/css?family=Happy Monkey' rel='stylesheet'>
         <script src="http://code.jquery.com/jquery-latest.js"></script>
-        <?= $this->headTitle('ZF Skeleton Application')->setSeparator(' - ')->setAutoEscape(false) ?>
+        <?= $this->headTitle('SiCred')->setSeparator(' - ')->setAutoEscape(false) ?>
 
         <?= $this->headMeta()
             ->appendName('viewport', 'width=device-width, initial-scale=1.0')
             ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
         ?>
 
-        <!-- Le styles -->
-        <?= $this->headLink(['rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'])
+        <!-- styles -->
+        <?= $this->headLink(['rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/bachilleres.png'])
             ->prependStylesheet($this->basePath('css/style.css'))
             ->prependStylesheet($this->basePath('css/bootstrap-theme.min.css'))
             ->prependStylesheet($this->basePath('css/bootstrap.min.css'))
@@ -28,34 +29,42 @@
         <script>
             $(document).ready(function () {
                 $("#serch").on('keypress', function (tecla) {
-                    if((tecla.charCode < 48 || tecla.charCode > 57) && (tecla.charCode < 97 || tecla.charCode >122) && (tecla.charCode < 65 || tecla.charCode > 90)){
+                    if((tecla.charCode < 48 || tecla.charCode > 57) && (tecla.charCode < 97 || tecla.charCode >122) && (tecla.charCode < 65 || tecla.charCode > 90) && (tecla.charCode != 13)){
                         alert("Caracter no válido");
                         return false;
                     }
                 });
             });
+            $(document).ready(function () {
+                $(".close").click(function () {
+                    $("#alert").alert("close");
+                })
+            });
         </script>
 
     </head>
     <body>
-        <nav class="nav navbar-inverse">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="<?= $this->url('home') ?>">
-                        <img src="<?= $this->basePath('img/bachilleres.png') ?>" height="28" alt="Colegio de Bachilleres <?= \Sicred\Module::VERSION ?> " />
-                    </a>
-                </div>
-            </div>
-        </nav>
+        <div id="header" class="jumbotron">
+            <table>
+                <tr>
+                    <td>
+                        <img src="<?= $this->basePath('img/logo_colegio_de_bachilleres.gif')?>" height="30%" width="30%" alt="Colegio de Bachilleres" class="img-responsive">
+                    </td>
+                    <td colspan="3">
+                        <h1 id="sicred" class="text-center font-weight-bold" style="font-size: 28px">SiCred</h1><br>
+                        <p id="sicred" class="text-center" style="font-size: 15px">Sistema de Credenciales</p>
+                    </td>
 
-        <footer class="container">
+                 </tr>
+             </table>
+        </div>
+        <div id="contenido"class="container"">
             <?= $this->content ?>
-            <p><b>Prolongación Rancho Vista Hermosa No. 105 Col. Los Girasoles C.P. 04920 Coyoacán México D.F.</b></p>
+        </div>
+        <br><br>
+        <footer class="container">
+            <br><br>
+            <p class="text-center font-weight-bold"><b>Prolongación Rancho Vista Hermosa No. 105 Col. Los Girasoles C.P. 04920 Coyoacán México D.F.</b></p>
         </footer>
         <?=$this->inlineScript() ?>
     </body>
