@@ -2,7 +2,9 @@
     $title = 'Revisión de credenciales';
     $this->headTitle($title);
 ?>
-<h1><?= $this->escapeHtml($title) ?></h1>
+<div class="text-center">
+    <h1><?= $this->escapeHtml($title) ?></h1>
+</div>
 
 <div class="container-fluid text-left">
     <form name="serch-form" id="serch-form" action="<?= $this->url.'/sicred/serch'?>" method="post" class=" col-xs-4">
