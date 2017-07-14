@@ -18,8 +18,7 @@ class IndexController extends AbstractActionController
         return new ViewModel();
     }
 
-    public function serchAction()
-    {
+    public function serchAction(){
         $resultSerch = null;
         if ($this->getRequest()->isPost()){
             $data = $this->request->getPost();
