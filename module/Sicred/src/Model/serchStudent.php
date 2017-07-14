@@ -13,36 +13,40 @@ use Doctrine\DBAL\Driver\PDOException;
 class serchStudent
 {
     protected $db;
+    protected $data;
+
+    public function getStudent($matricula, $plantel){
+        self::Connection();
+        $data = null;
+        $sql = "SELECT MATRICULA, NMBR, APLLD_MTRN, CURP FROM USRCB.USUARIO WHERE MATRICULA='".$matricula."'";
+        try{
+            $query = $this->db->query($sql);
+            $result = $query->setFetchMode(\PDO::FETCH_NUM);
+            while($row = $query->fetch()){
+                $this->data = [
+                    "matricula" => $row[0],
+                    "nombre" => $row[1],
+                    "plantel" => "1",
+                    "curp" => $row[3],
+                    //"img" => $img
+                ];
+            }
+            return $this->data;
+        }catch (PDOException $e){
+            return $this->data;
+        }
+    }
+
 
     private function Connection(){
         $conn = null;
-
         try{
-            $conn = new \PDO("oci:host=129.144.47.62;dbname=NUBEBDU;port=1524", "ADMPORTAL","CBUSRADMORA11");
+            $conn = new \PDO("oci:host=10.100.30.26;dbname=BD;port=1521", "ADMBDCOLBACH","DBABDCOLBACH");
             $conn->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
-            ?> <script>console.log("Conexion exitosa!")</script>
-            <?php
         }catch (PDOException $e){ ?>
             <script>console.log("ERROR: "' . <?php $e->getMessage()?> .') </script>
         <?php }
         $this->db = $conn;
-    }
-
-    public function getStudent($matricula, $plantel){
-        self::Connection();
-        $result = null;
-        $sql = "SELECT MATRICULA, NOMBRE, PLANTEL, CURP FROM ADMPORTAL.DATOS_ALUMNOS_RESP WHERE MATRICULA='".$matricula."' AND PLANTEL=".$plantel;
-
-        foreach ($this->db->query($sql) as $row){
-            $result = [
-                "matricula" => $row['MATRICULA'],
-                "nombre" => $row['NOMBRE'],
-                "plantel" => $row['PLANTEL'],
-                "curp" => $row['CURP']
-            ];
-        }
-
-        return $result;
     }
 
 }
