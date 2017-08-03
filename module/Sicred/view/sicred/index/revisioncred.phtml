@@ -1,0 +1,23 @@
+<?php
+    $title = 'Revisión de credenciales';
+    $this->headTitle($title);
+?>
+<div class="text-center">
+    <h1><?= $this->escapeHtml($title) ?></h1>
+    <br><br>
+</div>
+
+<div class="container-fluid text-left">
+    <form name="serch-form" id="serch-form" action="<?= $this->url.'/sicred/serch'?>" method="post" class=" col-xs-4">
+        <div class="input-group">
+            <input name="serch" id="serch" type="text" class="form-control" placeholder="Buscar matrícula..." minlength="9" maxlength="9" required onkeyup="javascript:this.value=this.value.toUpperCase();" value="" autocomplete="off" autofocus>
+            <div class="input-group-btn">
+                <button class="btn btn-default" type="submit" id="serch-btn"><i class="glyphicon glyphicon-search"></i></button>
+            </div>
+        </div>
+    </form>
+</div>
+<div id="result" class="container text-center">
+
+</div>
+
