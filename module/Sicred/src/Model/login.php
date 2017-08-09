@@ -13,14 +13,14 @@ class login{
     private $db;
 
     public function startSession($user, $pwd){
-        /**self::Connection();
-        $sql = "SELECT NOMBRE_EMPL, PATERNO, MATERNO FROM USRCB WHERE CVE_EMPL='".$user."'"; //cambiar
+        self::Connection();
+        $sql = "SELECT NAME FROM PRIMER_INGRESO.SYS_USER WHERE MATRICULA='".$user."'"; //cambiar
         $query = $this->db->query($sql);
         $row = $query->fetch();
 
         //verificamos si se encontro el usuario
         if(isset($row)){
-            $sql = "SELECT CVE_EMPL FROM USRCB WHERE PWD ='".$pwd."'";
+            $sql = "SELECT NAME FROM USRCB WHERE PWD ='".$pwd."'";
             $query = $this->db->query($sql);
             $row = $query->fetch();
             //verificamos que la contraseña sea la carrecta
@@ -36,9 +36,9 @@ class login{
                 return -2;
             }
         }else{
-            //regresamos -1 si el usuario no existe
+            //regresamos -1 el usuario no existe
             return -1;
-        }**/
+        }
         if($user == '2170104' and $pwd == 'admin'){
             session_start();
             $_SESSION['aprobmat'] = null;
