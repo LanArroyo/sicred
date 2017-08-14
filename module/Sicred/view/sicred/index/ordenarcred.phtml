@@ -1,0 +1,78 @@
+<div class="container-fluid text-center">
+    <div class="row">
+        <div class="text-left" id="contenido">
+
+            <div class="container-fluid" id="form_ord">
+                <h1>Ordenamiento de Credenciales</h1><br>
+                <form name="ordenar-form" id="ordenar-form" action="#" method="post" class=" col-xs-4">
+                    <div class="form-group">
+                        <select id="plantel" name="plantel" class="form-control"  onchange="" required>
+                            <option id="selection" value="">Seleccione un plantel</option>
+                            <?php for ($i=1; $i<=20;$i++) {
+                                if($band == 2){
+                                    if ($i === (int)($data->plantel)) {?>
+                                        <option id="<?= $i ?>" value="<?= $i ?>" selected> <?= $i ?> </option>
+                                    <?php }else{ ?>
+                                        <option id="<?= $i ?>" value="<?= $i ?>" > <?= $i ?> </option>
+                                    <?php } ?>
+                                <?php }else{ ?>
+                                    <option id="<?= $i ?>" value="<?= $i ?>" > <?= $i ?> </option>
+                                <?php } ?>
+                            <?php }?>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <select id="fechacorte" name="fechacorte" class="form-control"  onchange="" required>
+                            <option id="selection" value="">Seleccione una fecha</option>
+                            <?php foreach ($fechascorte as $fecha) {
+                                if($band == 2){
+                                    if ($fecha == $data->fechacorte) {?>
+                                        <option id="<?= $fecha ?>" value="<?= $fecha ?>" selected> <?= $fecha ?> </option>
+                                    <?php }else{ ?>
+                                        <option id="<?= $fecha ?>" value="<?= $fecha ?>" > <?= $fecha ?> </option>
+                                    <?php } ?>
+                                <?php }else{ ?>
+                                    <option id="<?= $fecha ?>" value="<?= $fecha ?>" > <?= $fecha ?> </option>
+                                <?php } ?>
+                            <?php } ?>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control input-sm" type="text" id="grupo" name="grupo">
+                    </div>
+                    <button class="btn btn-default" type="submit" id="serch-btn"> Generar listado </button>
+                </form>
+            </div>
+
+            <?php if($band == 2){ ?>
+                <div id="result">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <td>ID</td>
+                            <td>MATRICULA</td>
+                            <td>NOMBRE</td>
+                            <td>GRUPO</td>
+                            <td>FECHA DE CORTE</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php $id= 1; ?>
+                        <?php foreach ($lista as $alum){?>
+                            <tr>
+                                <td><?= $id ?></td>
+                                <td><?= $alum[0] ?></td>
+                                <td><?= $alum[1]." ".$alum[2]." ".$alum[3] ?></td>
+                                <td><?= $alum[4] ?></td>
+                                <td><?= $alum[5] ?></td>
+                            </tr>
+                            <?php $id++;
+                         }?>
+                        </tbody>
+                    </table>
+                </div>
+            <?php }?>
+        </div>
+
+    </div>
+</div>
