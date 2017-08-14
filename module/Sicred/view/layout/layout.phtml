@@ -4,7 +4,7 @@
     <head>
         <meta charset="utf-8">
         <link href="https://fonts.googleapis.com/css?family=Assistant" rel="stylesheet">
-        <link href='https://fonts.googleapis.com/css?family=Happy Monkey' rel='stylesheet'>
+        <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
         <script src="http://code.jquery.com/jquery-latest.js"></script>
         <?= $this->headTitle('SiCred')->setSeparator(' - ')->setAutoEscape(false) ?>
 
@@ -26,6 +26,49 @@
             ->prependFile($this->basePath('js/jquery-3.1.0.min.js'))
         ?>
 
+    </head>
+    <body>
+        <?php
+            $sesion = !empty($_SESSION);
+        ?>
+        <div class="container" id="header">
+            <div class="jumbotron">
+                <div id="div_titulo">
+                    <h1 style="font-family: 'Lobster', cursive; position: absolute; top: 2%;">SiCred</h1>
+                    <p style="top: 4%">Sistemas de Credenciales</p>
+
+                </div>
+                <div id="div_icon" class="img-responsive">
+                    <img src="<?= $this->basePath('img/bachilleres.png')?>" class="img-responsive center-block">
+                </div>
+            </div>
+            <nav id="navbar" class="navbar navbar-inverse">
+                <div class="container-fluid">
+                    <ul class="nav navbar-nav">
+                        <li ><a href="<?= $this->basePath('sicred/index'); ?>">Home</a></li>
+                        <?php if($sesion){ ?>
+                            <li><a href="<?= $this->basePath('sicred/revisioncred'); ?>">Revisión de Credenciales</a></li>
+                            <li><a href="<?= $this->basePath('sicred/ordenarcred'); ?>">Ordenamiento de Credenciales</a></li>
+                        <?php }?>
+                    </ul>
+                    <?php if($sesion){ ?>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a href="/sicred/logout"><span class="glyphicon glyphicon-log-out"></span> Salir </a></li>
+                        </ul>
+                    <?php } ?>
+                </div>
+            </nav>
+        </div>
+        <div id="contenido" class="container-fluid text-center">
+            <?= $this->content ?>
+            <hr>
+            <!--footer id="footer" class="container-fluid text-center">
+                <p class="text-center font-weight-bold"><b>Prolongación Rancho Vista Hermosa No. 105 Col. Los Girasoles C.P. 04920 Coyoacán México D.F.</b></p>
+            </footer-->
+        </div>
+
+        <?=$this->inlineScript() ?>
+
         <script>
             $(document).ready(function () {
                 $("#serch").on('keypress', function (tecla) {
@@ -41,12 +84,23 @@
                 })
             });
             $(document).ready(function () {
-                $("#ok-btn").click(function () {
+                $("#reporte").is(function () {
+                    $("#radio").show();
+                })
+            });
+            $(document).ready(function () {
+                $("input[type=checkbox]").on('click', function(){
+                    $("#msg_err").show();
+                    $("#status").attr("value","2");
+                })
+            });
+            $(document).ready(function () {
+                $("#popup").click(function () {
                     $.ajax({
                         type: "POST",
                         async: false,
                         cache: false,
-                        url: "<?= $this->basePath('Prueba/agregarCredencial.php')?>",
+                        url: "<?= '/sicred/ordenarcred'?>",
                         data: "inp-matricula=" + document.getElementById("inp-matricula").value+
                         "&inp-nombre="+document.getElementById("inp-nombre").value+
                         "&inp-plantel="+document.getElementById("inp-plantel").value,
@@ -61,34 +115,5 @@
                 });
             });
         </script>
-
-    </head>
-    <body>
-        <div id="header" class="jumbotron">
-            <table>
-                <tr>
-                    <td>
-                        <img src="<?= $this->basePath('img/logo_colegio_de_bachilleres.gif')?>" height="30%" width="30%" alt="Colegio de Bachilleres" class="img-responsive">
-                    </td>
-                    <td colspan="3">
-                        <h1 id="sicred" class="text-center font-weight-bold" style="font-size: 28px">SiCred</h1><br>
-                        <p id="sicred" class="text-center" style="font-size: 15px">Sistema de Credenciales</p>
-                    </td>
-                    <td style="text-align: left">
-                        <?php $date = getdate();?>
-                        <h5 class="text-left" style="text-align: left"><?= $date['mday']."/".$date['mon']."/".$date['year'] ?></h5>
-                    </td>
-                 </tr>
-             </table>
-        </div>
-        <div id="contenido"class="container"">
-            <?= $this->content ?>
-        </div>
-        <br><br>
-        <footer class="container">
-            <br><br>
-            <p class="text-center font-weight-bold"><b>Prolongación Rancho Vista Hermosa No. 105 Col. Los Girasoles C.P. 04920 Coyoacán México D.F.</b></p>
-        </footer>
-        <?=$this->inlineScript() ?>
     </body>
 </html>
