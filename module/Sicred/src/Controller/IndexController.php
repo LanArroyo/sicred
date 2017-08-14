@@ -34,11 +34,13 @@ class IndexController extends AbstractActionController
                 return $this->redirect()->toUrl($this->getRequest()->getBaseURL().'/sicred/revisioncred');
 
             }elseif ($result == -1){
-                $msj = ["error"=>"El usuario no existe, verifique que su matricula es la correcta"];
+                //regresamos -1 el usuario se equivoco de contraseña
+                $msj = -1;
                 $css=["sty" => "display:block"];
                 return new ViewModel(["msj"=>$msj, "css"=>$css]);
             }elseif ($result == -2){
-                $msj = ["error"=>"Contraseña incorrecta"];
+                //regresamos -2 el usuario no existe
+                $msj = -2;
                 $css=["sty" => "display:none"];
                 return new ViewModel(["msj"=>$msj, "css"=>$css]);
             }
