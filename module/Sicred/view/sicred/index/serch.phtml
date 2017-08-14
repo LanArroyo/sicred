@@ -1,51 +1,99 @@
 <?php
+//session_start();
 $title = 'Revisión de credenciales';
 $this->headTitle($title);
 $size = count($resultSerch);
+if($resultSerch["validation"] == ''){
+    $validacion = 'No se ha validado la matrícula';
+}else{
+    $validacion = 'Validada el '.$resultSerch["validation"];
+}
 ?>
-<h3><?= $this->escapeHtml($title) ?></h3>
-<div class="container">
-    <form name="serch-form" id="serch-form" action="<?= $this->url.'/sicred/serch'?>" method="post" class=" col-xs-4">
-        <div class="form-group">
-            <select id="plantel" name="plantel" class="form-control" required>
-                <option id="selection" value="">Seleccione un plantel</option>
-                <?php for ($i=1; $i<=25;$i++) {
-                    if ($i === (int)($resultSerch["plantel"])) {
-                        ?>
-                        <option id="<?= $i ?>" value="<?= $i ?>" selected><?= $i ?></option>
-                    <?php } else { ?>
-                        <option id="<?= $i ?>" value="<?= $i ?>"><?= $i ?></option>
-                    <?php }
-                }?>
-            </select>
-        </div>
-        <div class="input-group">
-            <input name="serch" id="serch" type="text" class="form-control" placeholder="Buscar matrícula..." minlength="9" maxlength="9" required onkeyup="javascript:this.value=this.value.toUpperCase();" value="" autocomplete="off">
-            <div class="input-group-btn">
-                <button class="btn btn-default" type="submit" id="serch-btn"><i class="glyphicon glyphicon-search"></i></button>
+
+<div class="container-fluid text-center">
+    <div class="row">
+        <div class="col-sm-1 col-md-8 text-left" id="contenido">
+
+            <div class="container-fluid" id="form_serch">
+                <h1><?= $this->escapeHtml($title) ?></h1><br>
+                <div class="col-xs-4">
+                    <form name="serch-form" id="serch-form" action="<?= $this->url.'/sicred/serch'?>" method="post">
+                        <input id="status" name="status" type="text" value="1" hidden>
+                        <input id="beforemat" name="beforemat" type="text" value="<?= $resultSerch["matricula"] ?>" hidden>
+                        <p id="msg_err" style="display: none;font-size: 14pt;">Por favor ingrese la matrícula que aparece impresa en la credencial</p>
+                        <div class="input-group">
+                            <input name="serch" id="serch" type="text" class="form-control" placeholder="Buscar matrícula..." minlength="9" maxlength="9" required onkeyup="javascript:this.value=this.value.toUpperCase();" value="" autocomplete="off" autofocus>
+                            <div class="input-group-btn">
+                                <button class="btn btn-default" type="submit" id="serch-btn" name="serch-btn"><i class="glyphicon glyphicon-search"></i></button>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="checkbox">
+                        <label><input type="checkbox" value="3">Datos de impresion incorrectos</label>
+                    </div>
+                </div>
+                <div id="form_report_cred" class="col-xs-4">
+                    <form action="<?= $this->url.'/sicred/reporterror'?>" method="post">
+                        <input id="report_matricula" name="report_matricula" type="text" value="<?= $resultSerch["matricula"] ?>" hidden>
+                        <button class="btn btn-default" type="submit" id="btn_enviar_error" name="btn_enviar_error" style= <?= $css["sty"]?> >Enviar solicitud de Reimpresion</button>
+                    </form>
+                </div>
             </div>
+
+            <br><br>
+            <div id="result">
+                <?php if($size > 3){ ?>
+                    <h4 id="matricula" name="matricula">Resultado para: <b><?= $resultSerch["matricula"] ?></b></h4>
+                    <h4 id="status" name="status">Estado: <b><?= $validacion ?></b></h4>
+                    <table class="table table-responsive" id="result_serch">
+                        <tbody>
+                        <tr>
+                            <td id="photo" rowspan="5">
+                                <?php
+                                $file = "S:\\fotos2016\\".$resultSerch["img"];
+                                $gestor = fopen($file,"r");
+                                $img = fread($gestor,filesize($file));
+                                $imdata = base64_encode($img);
+                                ?>
+                                <img src="data:image/jpg;base64, <?= $imdata?>" id="foto_std">
+                                <?php fclose($gestor);?>
+                            </td>
+                            <td>
+                                <p>NOMBRE: <h3 name="nombre" id="nombre"><b><?= $resultSerch["nombre"] ?></b></h3></p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>APELLIDOS:<h3 name="apellidos" id="apellidos"><b><?= $resultSerch["apellidos"] ?></b></h3></p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                GRUPO:<h3 name="grupo" id="grupo"><b><?= $resultSerch["grupo"] ?></b></h3>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                PLANTEL:<h3 name="plantel" id="plantel"><b><?= $resultSerch["plantel"] ?></b></h3>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                CURP:<h3 name="curp" id="curp"><b><?= $resultSerch["curp"] ?></b></h3>
+                            </td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+
+                <?php }else{?>
+                    <div class="alert alert-danger alert-dismissable" id="alert">
+                        <a href="#" class="close">&times;</a>
+                        La matrícula <strong><?= $data["serch"] ?></strong> no fue encontrada! Por favor verifique que los datos sean correctos.
+                    </div>
+                <?php }?>
+            </div>
+
         </div>
-    </form>
-</div>
-<br><br>
-<div class="container">
-    <?php if($size != 2){ ?>
-        <h4><b><?= $resultSerch["matricula"] ?></b></h4>
-        <table class="table table-hover">
-            <tr>
-                <td id="photo" rowspan="4"><center><img src="<?= $this->basePath('img/bachilleres.png') ?>"/></center></td>
-                <td colspan="2"><?= $resultSerch["nombre"] ?></td>
-            </tr>
-            <tr>
-                <td colspan="2"><?= $resultSerch["plantel"] ?></td>
-            </tr>
-            <tr>
-                <td colspan="2"><?= $resultSerch["curp"] ?></td>
-            </tr>
-        </table>
-   <?php }else{?>
-        <h4>No se encontró la matrícula <b><?= $resultSerch["serch"]?></b></h4>
-   <?php }?>
-
-
+    </div>
 </div>
