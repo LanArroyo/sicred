@@ -15,6 +15,7 @@ class logout{
         if(isset($_SESSION['pendmat'])){
             $serch = new Model\serchStudent();
             $serch->updateStudent($_SESSION['pendmat']);
+            session_unset();
             session_destroy();
         }else{
             session_destroy();
